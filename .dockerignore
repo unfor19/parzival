@@ -1,0 +1,8 @@
+**
+!cmd
+!scripts
+!go.mod
+!go.sum
+!LICENSE
+!main.go
+!Makefile
