@@ -99,8 +99,9 @@ should fail "Get Unknown Argument" "run_app get --local"
 
 should pass "Prepare For Set Tests" "run_app get -l -m 1 -o .tests.json -p /myapp/dev/"
 should pass "Set Staging Parameters" "run_app set -i .tests.json -p /myapp/stg/ -r us-east-1 -l -s /myapp/dev/ -w"
-should fail "Set Staging Parameters - Without Overwrite" "run_app set -i .tests.json -p /myapp/stg/ -r us-east-1 -l -s /myapp/dev/"
 should pass "Get All Parameters" "run_app get -l -p /myapp/ -o .tests.json"
+should fail "Set Staging Parameters - Without Overwrite" "run_app set -i .tests.json -p /myapp/stg/ -r us-east-1 -l -s /myapp/dev/"
+
 cat .tests.json
 log_msg "Completed Test Suite"
 
