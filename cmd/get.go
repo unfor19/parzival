@@ -26,7 +26,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -46,23 +45,28 @@ parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --json-path ".
 	Run: func(cmd *cobra.Command, args []string) {
 		useLocalStack, err := cmd.Flags().GetBool("localstack")
 		if err != nil {
-			log.Fatalln(err)
+			logger.Fatalln(err)
 		}
 		parametersRegion, err := cmd.Flags().GetString("region")
 		if err != nil {
-			log.Fatalln(err)
+			logger.Fatalln(err)
 		}
 		parametersPath, err := cmd.Flags().GetString("parameters-path")
 		if err != nil {
-			log.Fatalln(err)
+			logger.Fatalln(err)
 		}
 		maxPageResults, err := cmd.Flags().GetInt32("max-page-results")
 		if err != nil {
-			log.Fatalln(err)
+			logger.Fatalln(err)
+		}
+		if maxPageResults < 1 || maxPageResults > 10 {
+			logger.Warnln("Invalid value for max-page-results", maxPageResults)
+			maxPageResults = 10
+			logger.Warnln("Using", maxPageResults, "instead")
 		}
 		outputFilePath, err := cmd.Flags().GetString("output-file-path")
 		if err != nil {
-			log.Fatalln(err)
+			logger.Fatalln(err)
 		}
 		awsConfig := InitAwsConfig(useLocalStack, parametersRegion)
 		svc := ssm.NewFromConfig(awsConfig)
@@ -79,7 +83,7 @@ parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --json-path ".
 		for pagniator.HasMorePages() {
 			page, err := pagniator.NextPage(context.TODO())
 			if err != nil {
-				log.Fatalln("failed to get a page ", err)
+				logger.Fatalln("failed to get a page ", err)
 			}
 			for _, param := range page.Parameters {
 				p := &SsmParameter{
@@ -98,7 +102,7 @@ parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --json-path ".
 				case "StringList":
 					ssmParametersGroup.StringList = append(ssmParametersGroup.StringList, *p)
 				default:
-					log.Fatalln("Unknown Parameter Type: ", p.Type, " For ", p.Name)
+					logger.Fatalln("Unknown Parameter Type: ", p.Type, " For ", p.Name)
 				}
 			}
 			ssmParametersJson, err := json.MarshalIndent(ssmParametersGroup, "", " ")
@@ -106,6 +110,7 @@ parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --json-path ".
 				fmt.Println(err)
 				return
 			}
+			logger.Debugln("Saved file to", outputFilePath)
 			_ = ioutil.WriteFile(outputFilePath, ssmParametersJson, 0644)
 		}
 	},

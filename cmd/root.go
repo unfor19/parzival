@@ -25,12 +25,16 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
+
 	"github.com/spf13/cobra"
 
 	"github.com/spf13/viper"
 )
 
 var cfgFile string
+var logger *log.Logger
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -51,6 +55,7 @@ func Execute() error {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+	logger = log.New()
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
@@ -58,9 +63,10 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.parzival.yaml)")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	formatter := &logrus.TextFormatter{
+		FullTimestamp: true,
+	}
+	logger.SetFormatter(formatter)
 }
 
 // initConfig reads in config file and ENV variables if set.
