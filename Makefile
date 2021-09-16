@@ -13,10 +13,14 @@ up-localstack:       ## Run localstack in Docker Compose
 down-localstack:     ## Stop localstack in Docker Compose
 	@docker-compose -p parzival -f docker-compose-localstack.yml down
 
+localstack-down: down-localstack
+
 clean-localstack:    ## Clean localstack in Docker Compose
 	@docker-compose -p parzival -f docker-compose-localstack.yml down -v --remove-orphans
 	@docker rm -f localstack 2>/dev/null || true
 	@rm -rf .localstack 2>/dev/null || true
+
+localstack-clean: clean-localstack
 
 test:                ## Run tests
 	@./scripts/tests.sh
