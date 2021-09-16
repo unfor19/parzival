@@ -31,7 +31,7 @@ jobs:
             .cache-go-build
           key: ${{ runner.os }}-go-build-test-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
           restore-keys: |
-            ${{ runner.os }}-go-build-test-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
+            ${{ runner.os }}-go-build-test-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-
       - name: Cache Go Modules
         id: cache-go-modules
         uses: actions/cache@v2
@@ -40,7 +40,7 @@ jobs:
             .cache-modules
           key: ${{ runner.os }}-go-modules-test-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
           restore-keys: |
-            ${{ runner.os }}-go-modules-test-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
+            ${{ runner.os }}-go-modules-test-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-
       - name: Get Dependencies
         if: steps.cache-go-modules.outputs.cache-hit != 'true'
         uses: unfor19/release-action/golang/1.16@master
@@ -78,7 +78,7 @@ jobs:
             .cache-go-build
           key: ${{ runner.os }}-go-build-${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
           restore-keys: |
-            ${{ runner.os }}-go-build-${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
+            ${{ runner.os }}-go-build-${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-
       - name: Cache Go Modules
         id: cache-go-modules
         uses: actions/cache@v2
@@ -87,7 +87,7 @@ jobs:
             .cache-modules
           key: ${{ runner.os }}-go-modules-${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
           restore-keys: |
-            ${{ runner.os }}-go-modules-${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-v2
+            ${{ runner.os }}-go-modules-${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ hashFiles('**/go.sum') }}-${{ env.PROJECT_NAME }}-
       - name: Get Dependencies
         if: steps.cache-go-modules.outputs.cache-hit != 'true'
         uses: unfor19/release-action/golang/1.16@master
