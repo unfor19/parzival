@@ -52,8 +52,8 @@ A CLI that can get/set more than 10 SSM Parameters by path in a single command.
    ```bash
    parzival set --region "us-east-1" \
         --input-file-path ".dev_parameters.json" \
-        --parameters-path "/myapp/stg/" \
-        --prefix-to-replace "/myapp/dev/"
+        --prefix-to-replace "/myapp/dev/" \
+        --parameters-path "/myapp/stg/"
    ```
 
 
