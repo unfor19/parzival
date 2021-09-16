@@ -46,7 +46,7 @@ jobs:
         uses: unfor19/release-action/golang/1.16@master
         with:
           action: dependencies
-          src-dir: golang
+          
           project-name: ${{ env.PROJECT_NAME }}
       - name: Go Test - Integration Test
         run: make test
@@ -54,7 +54,7 @@ jobs:
       #   uses: unfor19/release-action/golang/1.16@master
       #   with:
       #     action: test
-      #     src-dir: golang
+      #     
       #     project-name: ${{ env.PROJECT_NAME }}
       # - name: Upload UnitTest Test Results As Artifact
       #   uses: actions/upload-artifact@v2
@@ -106,14 +106,14 @@ jobs:
         uses: unfor19/release-action/golang/1.16@master
         with:
           action: dependencies
-          src-dir: golang
+          
           project-name: ${{ env.PROJECT_NAME }}
       - name: Go Build
         id: go-build
         uses: unfor19/release-action/golang/1.16@master
         with:
           action: build
-          src-dir: golang
+          
           project-name: ${{ env.PROJECT_NAME }}
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
