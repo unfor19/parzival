@@ -2,9 +2,6 @@
 set -e
 set -o pipefail
 
-_TFCODING_DOCKER_TAG="${TFCODING_DOCKER_TAG:-"unfor19/tfcoding:0.15.0-beta2-latest"}"
-
-
 error_msg(){
     local msg=$1
     echo -e "\e[31m[ERROR]\e[0m $msg"
@@ -34,7 +31,7 @@ should(){
 
     if [[ "$expected" == "pass" && "$output_code" -eq 0 && ! "$output_msg" =~ .*(ERROR|Error|error).* ]]; then
         echo -e "\e[92m[SUCCESS]\e[0m Test passed as expected"
-    elif [[ "$expected" == "fail" && "$output_code" -ne 0 ]] || [[ "$expected" == "fail" && "$output_msg" =~ .*(ERROR|Error|error|fatal).* ]] ; then
+    elif [[ "$expected" == "fail" && "$output_code" -ne 0 ]] || [[ "$expected" == "fail" && "$output_msg" =~ .*(ERROR|Error|error|fatal|Failed).* ]] ; then
         echo -e "\e[92m[SUCCESS]\e[0m Test failed as expected"
     else
         error_msg "Test output is not expected, terminating"
@@ -73,17 +70,19 @@ export AWS_SECRET_ACCESS_KEY="mock_aws"
 export AWS_SESSION_KEY="mock_aws"
 export AWS_REGION="us-east-1"
 _AWS_SSM_ENDPOINT_URL="${AWS_SSM_ENDPOINT_URL:-"http://localhost:4566"}"
-_SKIP_PARAM_CREATION="${SKIP_PARAM_CREATION:-"true"}"
+_SKIP_PARAM_CREATION="${SKIP_PARAM_CREATION:-"false"}"
 
 # Tests
 make up-localstack
 source scripts/wait_for_endpoints.sh "http://localhost:4566/health"
-if [[ "$_SKIP_PARAM_CREATION" != "true" ]]; then
+if [[ "$_SKIP_PARAM_CREATION" = "true" ]]; then
     log_msg "Creating parameters ..."
     ssm_put_parameter "/myapp/dev/LOG_LEVEL" "INFO" "String"
     ssm_put_parameter "/myapp/dev/GOOGLE_CLIENT_ID" "1a2s3d4f" "SecureString"
     ssm_put_parameter "/myapp/dev/GOOGLE_CLIENT_SECRET" "W1llyW0naO0mpaL00mp4" "SecureString"
     log_msg "Completed creating parameters"
+else
+    log_msg "Skipped parameter creation - ${_SKIP_PARAM_CREATION}"
 fi
 
 log_msg "Build application ..."
