@@ -6,6 +6,57 @@
 
 A CLI that can get/set more than 10 SSM Parameters by path in a single command.
 
+## Getting Started
+
+1. Download the binary file from the releases page, for example [0.0.2](https://github.com/unfor19/parzival/releases/tag/0.0.2)
+   - macOS - Intel chips
+    ```bash
+    PARZIVAL_OS="darwin" && \
+    PARZIVAL_ARCH="amd64" && \
+    PARZIVAL_VERSION="0.0.2" && \
+    curl -sL -o parzival "https://github.com/unfor19/parzival/releases/download/${PARZIVAL_VERSION}/parzival_${PARZIVAL_VERSION}_${PARZIVAL_OS}_${PARZIVAL_ARCH}"
+    ```
+   - macOS - M1 chips
+    ```bash
+    PARZIVAL_OS="darwin" && \
+    PARZIVAL_ARCH="arm64" && \
+    PARZIVAL_VERSION="0.0.2" && \
+    curl -sL -o parzival "https://github.com/unfor19/parzival/releases/download/${PARZIVAL_VERSION}/parzival_${PARZIVAL_VERSION}_${PARZIVAL_OS}_${PARZIVAL_ARCH}"
+    ```    
+   - Linux - amd64
+    ```bash
+    PARZIVAL_OS="linux" && \
+    PARZIVAL_ARCH="amd64" && \
+    PARZIVAL_VERSION="0.0.2" && \
+    curl -sL -o parzival "https://github.com/unfor19/parzival/releases/download/${PARZIVAL_VERSION}/parzival_${PARZIVAL_VERSION}_${PARZIVAL_OS}_${PARZIVAL_ARCH}"
+    ```
+   - [Windows WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) - 386
+    ```bash
+    PARZIVAL_OS="linux" && \
+    PARZIVAL_ARCH="386" && \    
+    PARZIVAL_VERSION="0.0.2" && \
+    curl -sL -o parzival "https://github.com/unfor19/parzival/releases/download/${PARZIVAL_VERSION}/parzival_${PARZIVAL_VERSION}_${PARZIVAL_OS}_${PARZIVAL_ARCH}"
+    ```
+2. Set permissions to allow execution of `parzival` binary and move to `/usr/local/bin` dir 
+   ```bash
+   chmod +x parzival && \
+   sudo mv parzival "/usr/local/bin/parzival"
+   ```
+3. Get SSM Parameters by path
+   ```bash
+   parzival get --region "us-east-1" \
+        --output-file-path ".dev_parameters.json" \
+        --parameters-path "/myapp/dev/"
+   ```
+4. Set SSM Parameters according to the output of `Get`
+   ```bash
+   parzival set --region "us-east-1" \
+        --input-file-path ".dev_parameters.json" \
+        --parameters-path "/myapp/stg" \
+        --prefix-to-replace "/myapp/dev/"
+   ```
+
+
 ## Local Development
 
 <details>
