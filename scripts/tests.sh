@@ -75,7 +75,7 @@ _SKIP_PARAM_CREATION="${SKIP_PARAM_CREATION:-"false"}"
 # Tests
 make up-localstack
 source scripts/wait_for_endpoints.sh "http://localhost:4566/health"
-if [[ "$_SKIP_PARAM_CREATION" = "true" ]]; then
+if [[ "$_SKIP_PARAM_CREATION" != "true" ]]; then
     log_msg "Creating parameters ..."
     ssm_put_parameter "/myapp/dev/LOG_LEVEL" "INFO" "String"
     ssm_put_parameter "/myapp/dev/GOOGLE_CLIENT_ID" "1a2s3d4f" "SecureString"
