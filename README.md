@@ -66,14 +66,13 @@ A CLI that can get/set more than 10 SSM Parameters by path in a single command.
 For local development, we'll use the following services
 
 - [localstack](https://github.com/localstack/localstack) - A fully functional local cloud (AWS) stack
-- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) - As part of the test suite, AWS CLI invokes `ssm put-parameter ...`
 
 ### Requirements
 
 - [Golang 1.16+](https://golang.org/doc/install)
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) - As part of the test suite, AWS CLI invokes `ssm put-parameter ...`
 ### Development Process
 
 #### Initial Setup For Golang
@@ -103,6 +102,13 @@ make build
 #### Test
 
 ```bash
+make test
+```
+
+Skip SSM Parameter creation by setting before running tests
+
+```bash
+export SKIP_PARAM_CREATION="true" && \
 make test
 ```
 
