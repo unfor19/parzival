@@ -1,6 +1,6 @@
 # parzival
 
-[![release-workflow](https://github.com/unfor19/parzival/actions/workflows/release.yml/badge.svg)](https://github.com/unfor19/parzival/actions/workflows/release.yml) [![release](https://img.shields.io/github/v/release/unfor19/parzival?color=gren&label=release&logo=go)](https://github.com/unfor19/parzival/releases/latest) [![pre-release](https://img.shields.io/github/v/release/unfor19/parzival?color=orange&include_prereleases&label=pre-release&logo=go)](https://github.com/unfor19/parzival/releases)
+[![release-workflow](https://github.com/unfor19/parzival/actions/workflows/release.yml/badge.svg)](https://github.com/unfor19/parzival/actions/workflows/release.yml) [![release](https://img.shields.io/github/v/release/unfor19/parzival?color=green&label=release&logo=go)](https://github.com/unfor19/parzival/releases/latest) [![pre-release](https://img.shields.io/github/v/release/unfor19/parzival?color=orange&include_prereleases&label=pre-release&logo=go)](https://github.com/unfor19/parzival/releases)
 
 **Work In Progress (WIP)**
 
