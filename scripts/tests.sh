@@ -34,7 +34,7 @@ should(){
 
     if [[ "$expected" == "pass" && "$output_code" -eq 0 && ! "$output_msg" =~ .*(ERROR|Error|error).* ]]; then
         echo -e "\e[92m[SUCCESS]\e[0m Test passed as expected"
-    elif [[ "$expected" == "fail" && "$output_code" -ne 0 ]] || [[ "$expected" == "fail" && "$output_msg" =~ .*(ERROR|Error|error).* ]] ; then
+    elif [[ "$expected" == "fail" && "$output_code" -ne 0 ]] || [[ "$expected" == "fail" && "$output_msg" =~ .*(ERROR|Error|error|fatal).* ]] ; then
         echo -e "\e[92m[SUCCESS]\e[0m Test failed as expected"
     else
         error_msg "Test output is not expected, terminating"
