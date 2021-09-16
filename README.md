@@ -1,5 +1,7 @@
 # parzival
 
+[![release](https://github.com/unfor19/parzival/actions/workflows/release.yml/badge.svg)](https://github.com/unfor19/parzival/actions/workflows/release.yml)
+
 **Work In Progress (WIP)**
 
 A CLI that can get/set more than 10 SSM Parameters by path in a single command.
