@@ -2,14 +2,13 @@
 ARG GO_VERSION=1.16.8
 ARG ALPINE_VERSION=3.14
 ARG ALPINECI_DOCKERTAG="awscli-latest-287984ed"
-ARG REPO_NAME=""
 ARG APP_NAME="parzival"
 ARG APP_PATH="/go/src/github.com/unfor19/parzival"
 
 FROM unfor19/alpine-ci:${ALPINECI_DOCKERTAG} as awscli
 
 # Dev
-FROM golang:${GO_VERSION}-alpine AS dev
+FROM golang:${GO_VERSION}-alpine${ALPINE_VERSION} AS dev
 RUN apk add --update git groff
 COPY --from=awscli /usr/local/aws-cli/ /usr/local/aws-cli/
 COPY --from=awscli /usr/local/bin/ /usr/local/bin/
