@@ -2,9 +2,9 @@
 
 [![release-workflow](https://github.com/unfor19/parzival/actions/workflows/release.yml/badge.svg)](https://github.com/unfor19/parzival/actions/workflows/release.yml) [![release](https://img.shields.io/github/v/release/unfor19/parzival?color=green&label=release&logo=go)](https://github.com/unfor19/parzival/releases/latest) [![pre-release](https://img.shields.io/github/v/release/unfor19/parzival?color=orange&include_prereleases&label=pre-release&logo=go)](https://github.com/unfor19/parzival/releases)
 
-**Work In Progress (WIP)**
-
 A CLI that can get/set more than 10 SSM Parameters by path in a single command.
+
+I wrote this project to solve the challenge of managing high number of SSM parameter values. I'll soon publish a blog post about the subject, meanwhile, you can check my [unfor19/terraform-aws-ssm-parameters](https://github.com/unfor19/terraform-aws-ssm-parameters) Terraform module. The Terraform module is used for creating/delete (schema) SSM Parameters, and this project, parzival, is used for managing the **values** of SSM Parameters.
 
 ## Getting Started
 
