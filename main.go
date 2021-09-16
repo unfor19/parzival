@@ -21,8 +21,14 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/unfor19/parzival/cmd"
+import (
+	"os"
+
+	"github.com/unfor19/parzival/cmd"
+)
 
 func main() {
-	cmd.Execute()
+	if err := cmd.Execute(); err != nil {
+		os.Exit(1)
+	}
 }

@@ -49,18 +49,6 @@ jobs:
           project-name: ${{ env.PROJECT_NAME }}
       - name: Go Test - Integration Test
         run: make test
-      # - name: Go Test - UnitTest
-      #   uses: unfor19/release-action/golang/1.16@master
-      #   with:
-      #     action: test
-      #     
-      #     project-name: ${{ env.PROJECT_NAME }}
-      # - name: Upload UnitTest Test Results As Artifact
-      #   uses: actions/upload-artifact@v2
-      #   if: always()
-      #   with:
-      #     name: test_report
-      #     path: test_report.html
   build:
     name: Build
     runs-on: ubuntu-20.04
