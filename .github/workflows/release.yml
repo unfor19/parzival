@@ -115,39 +115,39 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ steps.go-build.outputs.artifact-name }}
+          name: "${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ env.PROJECT_NAME }}"
           path: ${{ steps.go-build.outputs.artifact-full-path }}
-  # release:
-  #   name: Release
-  #   runs-on: ubuntu-20.04
-  #   needs:
-  #     - test
-  #     - build
-  #   strategy:
-  #     matrix:
-  #       include:
-  #         - GOARCH: "amd64"
-  #           GOOS: "linux"
-  #         - GOARCH: "386"
-  #           GOOS: "linux"
-  #         - GOARCH: "arm64"
-  #           GOOS: "linux"
-  #         - GOARCH: "amd64"
-  #           GOOS: "darwin"
-  #         - GOARCH: "amd64"
-  #           GOOS: "windows"
-  #   env:
-  #     GOOS: ${{ matrix.GOOS }}
-  #     GOARCH: ${{ matrix.GOARCH }}
-  #   steps:
-  #     - uses: actions/checkout@master # This is for getting the current commit SHA
-  #     - uses: actions/download-artifact@v2
-  #       name: Download Build Artifact
-  #       with:
-  #         name: "${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ env.PROJECT_NAME }}"
-  #     - name: GitHub Release
-  #       uses: unfor19/release-action/golang/1.16@master
-  #       with:
-  #         action: release
-  #         project-name: ${{ env.PROJECT_NAME }}
-  #         gh-token: ${{ secrets.GH_TOKEN }}
+  release:
+    name: Release
+    runs-on: ubuntu-20.04
+    needs:
+      - test
+      - build
+    strategy:
+      matrix:
+        include:
+          - GOARCH: "amd64"
+            GOOS: "linux"
+          - GOARCH: "386"
+            GOOS: "linux"
+          - GOARCH: "arm64"
+            GOOS: "linux"
+          - GOARCH: "amd64"
+            GOOS: "darwin"
+          - GOARCH: "amd64"
+            GOOS: "windows"
+    env:
+      GOOS: ${{ matrix.GOOS }}
+      GOARCH: ${{ matrix.GOARCH }}
+    steps:
+      - uses: actions/checkout@master # This is for getting the current commit SHA
+      - uses: actions/download-artifact@v2
+        name: Download Build Artifact
+        with:
+          name: "${{ matrix.GOOS }}-${{ matrix.GOARCH }}-${{ env.PROJECT_NAME }}"
+      - name: GitHub Release
+        uses: unfor19/release-action/golang/1.16@master
+        with:
+          action: release
+          project-name: ${{ env.PROJECT_NAME }}
+          gh-token: ${{ secrets.GH_TOKEN }}
