@@ -4,6 +4,9 @@ help:                ## Available make commands
 
 usage: help         
 
+build:
+	@go build
+
 up-localstack:       ## Run localstack in Docker Compose
 	@docker-compose -p parzival -f docker-compose-localstack.yml up --detach
 

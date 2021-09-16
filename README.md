@@ -44,7 +44,7 @@ make up-localstack && \
 #### Build
 
 ```bash
-go build
+make build
 ```
 
 #### Test
