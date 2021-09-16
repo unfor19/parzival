@@ -62,6 +62,9 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.parzival.yaml)")
+	rootCmd.PersistentFlags().StringP("region", "r", "", "SSM Parameters AWS Region")
+	rootCmd.PersistentFlags().BoolP("localstack", "l", false, "Use localstack as the endpoint")
+	rootCmd.PersistentFlags().StringP("parameters-path", "p", "/", "SSM Parameters path")
 
 	formatter := &logrus.TextFormatter{
 		FullTimestamp: true,

@@ -40,7 +40,7 @@ var getCmd = &cobra.Command{
 	Long: `Get up to 1000 SSM Parameters in a single command.
 Behind the scenes, parzival is making multiple API requests. For example:
 
-parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --json-path ".dev_parameters.json"
+parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --output-file-path ".dev_parameters.json"
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		useLocalStack, err := cmd.Flags().GetBool("localstack")
@@ -118,9 +118,6 @@ parzival get --region "us-east-1" --parameters-path "/myapp/dev/" --json-path ".
 
 func init() {
 	rootCmd.AddCommand(getCmd)
-	getCmd.PersistentFlags().StringP("region", "r", "", "SSM Parameters AWS Region")
-	getCmd.PersistentFlags().BoolP("localstack", "l", false, "Use localstack as the endpoint")
-	getCmd.PersistentFlags().StringP("parameters-path", "p", "/", "SSM Parameters path")
 	now := time.Now() // used in the output file name, to avoid the loss of existing sensitive data
 	sec := now.Format("20060102150405")
 	getCmd.PersistentFlags().StringP("output-file-path", "o", ".parameters-"+sec+".json", "Output file path")

@@ -62,7 +62,7 @@ run_app(){
     local output
     set +e
     output="$(./parzival "$@" 2>&1)"
-    sleep 1
+    sleep 2
     set -e
     echo "$output"
 }
@@ -94,8 +94,14 @@ log_msg "Running Test Suite"
 should pass "Help Menu" "run_app get --help"
 should pass "Get No Arguments" "run_app get --localstack"
 should pass "Get Minimum Arguments" "run_app get --localstack -p /myapp/"
-should pass "Get Complete Arguments" "run_app get --localstack -p /myapp/ -o .test.json"
+should pass "Get Complete Arguments" "run_app get --localstack -p /myapp/ -o .tests.json"
 should fail "Get Unknown Argument" "run_app get --local"
+
+should pass "Prepare For Set Tests" "run_app get -l -m 1 -o .tests.json -p /myapp/dev/"
+should pass "Set Staging Parameters" "run_app set -i .tests.json -p /myapp/stg/ -r us-east-1 -l -s /myapp/dev/ -w"
+should fail "Set Staging Parameters - Without Overwrite" "run_app set -i .tests.json -p /myapp/stg/ -r us-east-1 -l -s /myapp/dev/"
+should pass "Get All Parameters" "run_app get -l -p /myapp/ -o .tests.json"
+cat .tests.json
 log_msg "Completed Test Suite"
 
 log_msg "Finished"
