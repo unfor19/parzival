@@ -86,7 +86,7 @@ func putParameterMiddleware(svc ssm.Client, data []SsmParameter, prefixToReplace
 	for _, p := range data {
 		logger.Debug(p.Name)
 		targetName := aws.String(strings.Replace(p.Name, prefixToReplace, parametersPath, -1))
-		params := null
+		params := nil
 		if (p.Type == "SecureString"){
 			params = ssm.PutParameterInput{
 				Name:      targetName,
