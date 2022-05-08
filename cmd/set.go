@@ -86,12 +86,22 @@ func putParameterMiddleware(svc ssm.Client, data []SsmParameter, prefixToReplace
 	for _, p := range data {
 		logger.Debug(p.Name)
 		targetName := aws.String(strings.Replace(p.Name, prefixToReplace, parametersPath, -1))
-		params := ssm.PutParameterInput{
-			Name:      targetName,
-			Value:     &p.Value,
-			KeyId:     aws.String(kmsKeyId),
-			Overwrite: overwriteValues,
-			Type:      types.ParameterType(p.Type),
+		params := null
+		if (p.Type == "SecureString"){
+			params = ssm.PutParameterInput{
+				Name:      targetName,
+				Value:     &p.Value,
+				KeyId:     aws.String(kmsKeyId),
+				Overwrite: overwriteValues,
+				Type:      types.ParameterType(p.Type),
+			}			
+		} else {
+			params = ssm.PutParameterInput{
+				Name:      targetName,
+				Value:     &p.Value,
+				Overwrite: overwriteValues,
+				Type:      types.ParameterType(p.Type),
+			}			
 		}
 		resp, err := svc.PutParameter(context.TODO(), &params)
 		if err != nil {
